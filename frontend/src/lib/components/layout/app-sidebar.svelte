@@ -1,17 +1,10 @@
 <script lang="ts">
   import User from "@lucide/svelte/icons/user";
-  import InboxIcon from "@lucide/svelte/icons/inbox";
-  import SettingsIcon from "@lucide/svelte/icons/settings";
   import LogOut from "@lucide/svelte/icons/log-out";
-  import SunMoon from "@lucide/svelte/icons/sun-moon";
   import * as Sidebar from "$lib/components/ui/sidebar/index.js";
-  import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
   import Rabbit from "@lucide/svelte/icons/rabbit";
   import { page } from "$app/stores";
   import { goto } from "$app/navigation";
-  // OLD: Wrong supabase client - this is the custom client with persistSession: false
-  // import { supabase } from "$lib/supabaseClient";
-  import { toggleMode } from "mode-watcher";
   import { navItems } from "$lib/config/navigation.js";
 
   let currentUserEmail = $derived($page.data?.user?.email || null);
@@ -20,10 +13,10 @@
       null
   );
 
-  // NEW: Get proper server supabase client from page data (same as private layout)
+  // Get proper server supabase client from page data
   let { supabase } = $derived($page.data);
 
-  // Determine which page is currently active (similar to mobile-bottom-tabs)
+  // Determine which page is currently active
   let currentActiveItem = $derived.by(() => {
     const pathname = $page.url.pathname;
 
@@ -38,17 +31,6 @@
     return "Dashboard";
   });
 
-  // OLD: handleSignOut function using wrong supabase client and fetch approach
-  // async function handleSignOut() {
-  //   try {
-  //     await supabase.auth.signOut();
-  //     goto("/auth");
-  //   } catch (error) {
-  //     console.error("Error signing out:", error);
-  //   }
-  // }
-
-  // NEW: handleSignOut function matching private layout pattern
   const handleSignOut = async () => {
     const { error } = await supabase.auth.signOut();
     if (error) {
@@ -114,16 +96,6 @@
           <span>User Profile</span>
         </Sidebar.MenuButton>
       </Sidebar.MenuItem>
-
-      <!-- Admin Settings -->
-      <!-- <Sidebar.MenuItem>
-        <Sidebar.MenuButton
-          class="border border-sidebar-primary/20 cursor-pointer"
-        >
-          <SettingsIcon />
-          <span>Admin Settings</span>
-        </Sidebar.MenuButton>
-      </Sidebar.MenuItem> -->
 
       <!-- Sign out -->
       <Sidebar.MenuItem>

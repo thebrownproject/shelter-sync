@@ -1,9 +1,8 @@
 <script lang="ts">
-  import AnimalDataTablePaginated from "$lib/components/animal-table/animal-data-table.svelte";
-  import { columns } from "$lib/components/animal-table/animal-columns";
-  import AnimalFilters from "$lib/components/AnimalFilters.svelte";
-  import AnimalModal from "$lib/components/AnimalModal.svelte";
-  import AnimalCreateForm from "$lib/components/AnimalCreateForm.svelte";
+  import { AnimalDataTable } from "$lib/components/animals/animal-table";
+  import { columns } from "$lib/components/animals/animal-table/animal-columns";
+  import { AnimalFilters, AnimalCreateForm } from "$lib/components/forms";
+  import { AnimalModal } from "$lib/components/animals";
   import * as Dialog from "$lib/components/ui/dialog/index.js";
   import { Button } from "$lib/components/ui/button/index.js";
   import type { Animal, AnimalModalMode } from "$lib/types";
@@ -104,7 +103,7 @@
 />
 
 <!-- Paginated Animal Data Table -->
-<AnimalDataTablePaginated
+<AnimalDataTable
   data={filteredAnimals}
   {columns}
   onView={handleView}

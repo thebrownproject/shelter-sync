@@ -4,13 +4,12 @@
   import * as Sidebar from "$lib/components/ui/sidebar/index.js";
   import * as Dialog from "$lib/components/ui/dialog/index.js";
   import * as Breadcrumb from "$lib/components/ui/breadcrumb/index.js";
-  import AppSidebar from "$lib/components/app-sidebar.svelte";
+  import { AppSidebar, MobileBottomTabs } from "$lib/components/layout";
+  import { RfidScanModal } from "$lib/components/rfid";
   import "../app.css";
   import { ModeWatcher } from "mode-watcher";
   import { page } from "$app/state";
-  // import app sidebar from componenents/app-sidebar to display
-  import MobileBottomTabs from "$lib/components/mobile-bottom-tabs.svelte";
-  import RFIDScanModal from "$lib/components/RFIDScanModal.svelte";
+  import { Toaster } from "svelte-sonner";
 
   type LogEvent = {
     [key: string]: any;
@@ -191,6 +190,7 @@
 </script>
 
 <ModeWatcher />
+<Toaster richColors position="top-right" />
 
 {#if isAuthRoute}
   <!-- Clean layout for auth pages - no sidebar -->
@@ -235,7 +235,7 @@
     </div>
   </div>
 
-  <RFIDScanModal
+  <RfidScanModal
     userID={currentUserId}
     animalData={animalDetails}
     {rfidTag}

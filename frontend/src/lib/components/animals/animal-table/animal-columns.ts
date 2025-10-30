@@ -1,6 +1,6 @@
 import type { ColumnDef } from "@tanstack/table-core";
 import type { Animal } from "$lib/types";
-import AnimalStatusBadge from "$lib/components/AnimalStatusBadge.svelte";
+import AnimalStatusBadge from "$lib/components/animals/animal-status-badge.svelte";
 import { Button } from "$lib/components/ui/button/index.js";
 
 export type AnimalTableData = Animal & {

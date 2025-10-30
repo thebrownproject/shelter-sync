@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { PageData } from "./$types";
-  import AnimalDataTable from "$lib/components/AnimalDataTable.svelte";
-  import PageHeader from "$lib/components/page-header.svelte";
+  import { AnimalDataTableWrapper } from "$lib/components/animals";
+  import { PageHeader } from "$lib/components/layout";
 
   // Get the data from the server
   export let data: PageData;
@@ -14,6 +14,6 @@
   />
 
   <section aria-label="Animal management interface">
-    <AnimalDataTable data={data.animals as any} />
+    <AnimalDataTableWrapper data={data.animals as any} />
   </section>
 </main>

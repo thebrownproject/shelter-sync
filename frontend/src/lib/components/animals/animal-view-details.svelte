@@ -1,5 +1,5 @@
 <script lang="ts">
-  import AnimalStatusBadge from "$lib/components/AnimalStatusBadge.svelte";
+  import { AnimalStatusBadge } from "$lib/components/animals";
   import type { Animal } from "$lib/types";
 
   export let animal: Animal;

@@ -18,7 +18,7 @@
   import type { Animal } from "$lib/types";
   import * as Table from "$lib/components/ui/table/index.js";
   import { Button } from "$lib/components/ui/button/index.js";
-  import AnimalStatusBadge from "$lib/components/AnimalStatusBadge.svelte";
+  import { AnimalStatusBadge } from "$lib/components/animals";
 
   type DataTableProps<TData, TValue> = {
     columns: ColumnDef<TData, TValue>[];

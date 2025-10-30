@@ -11,29 +11,19 @@ export const nodes = [
 	() => import('./nodes/7'),
 	() => import('./nodes/8'),
 	() => import('./nodes/9'),
-	() => import('./nodes/10'),
-	() => import('./nodes/11'),
-	() => import('./nodes/12'),
-	() => import('./nodes/13'),
-	() => import('./nodes/14'),
-	() => import('./nodes/15')
+	() => import('./nodes/10')
 ];
 
 export const server_loads = [0,3];
 
 export const dictionary = {
 		"/": [~4],
-		"/admin_settings": [~5],
-		"/adoptions": [~6],
-		"/animals": [~7],
-		"/auth": [~8,[2]],
-		"/auth/check-mail": [9,[2]],
-		"/auth/error": [10,[2]],
-		"/health_checks": [~11],
-		"/private": [~12,[3]],
-		"/realtime_test": [13],
-		"/roster": [~14],
-		"/scan-logs": [~15]
+		"/animals": [~5],
+		"/auth": [~6,[2]],
+		"/auth/check-mail": [7,[2]],
+		"/auth/error": [8,[2]],
+		"/private": [~9,[3]],
+		"/scan-logs": [~10]
 	};
 
 export const hooks = {

@@ -13,9 +13,8 @@
   import Edit from "@lucide/svelte/icons/edit";
   import LogOut from "@lucide/svelte/icons/log-out";
   import FileText from "@lucide/svelte/icons/file-text";
-  import PageHeader from "$lib/components/page-header.svelte";
-  import { ProfileInfoCard, ProfileHeroCard } from "$lib/components/profile";
-  import { ProfileEditModal } from "$lib/components/profile";
+  import { PageHeader } from "$lib/components/layout";
+  import { ProfileInfoCard, ProfileHeroCard, ProfileEditModal } from "$lib/components/profile";
 
   let { data } = $props();
   let { supabase, currentUser } = $derived(data);

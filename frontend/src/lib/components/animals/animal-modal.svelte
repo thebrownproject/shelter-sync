@@ -1,8 +1,8 @@
 <script lang="ts">
   import * as Dialog from "$lib/components/ui/dialog/index.js";
   import { Button } from "$lib/components/ui/button/index.js";
-  import AnimalViewDetails from "$lib/components/AnimalViewDetails.svelte";
-  import AnimalEditForm from "$lib/components/AnimalEditForm.svelte";
+  import { AnimalViewDetails } from "$lib/components/animals";
+  import { AnimalEditForm } from "$lib/components/forms";
   import type { Animal, AnimalModalMode } from "$lib/types";
 
   export let animal: Animal | null = null;

@@ -4,7 +4,7 @@
   import { Label } from "$lib/components/ui/label/index.js";
   import { Input } from "$lib/components/ui/input/index.js";
   import * as Card from "$lib/components/ui/card/index.js";
-  import RfidScanChart from "$lib/components/rfid-scan-chart.svelte";
+  import { RfidScanChart } from "$lib/components/rfid";
   import type {
     Animal,
     HealthCheck,
