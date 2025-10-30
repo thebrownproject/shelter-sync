@@ -6,17 +6,13 @@
   import SunMoon from "@lucide/svelte/icons/sun-moon";
   import * as Sidebar from "$lib/components/ui/sidebar/index.js";
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
-  import * as Collapsible from "$lib/components/ui/collapsible/index.js";
-  import ChevronUp from "@lucide/svelte/icons/chevron-up";
-  import ChevronDown from "@lucide/svelte/icons/chevron-down";
-  import ChevronLeft from "@lucide/svelte/icons/chevron-left";
   import Rabbit from "@lucide/svelte/icons/rabbit";
   import { page } from "$app/stores";
   import { goto } from "$app/navigation";
   // OLD: Wrong supabase client - this is the custom client with persistSession: false
   // import { supabase } from "$lib/supabaseClient";
   import { toggleMode } from "mode-watcher";
-  import { navItems, devPlaygroundItems } from "$lib/config/navigation.js";
+  import { navItems } from "$lib/config/navigation.js";
 
   let currentUserEmail = $derived($page.data?.user?.email || null);
   let currentUserName = $derived(
@@ -102,36 +98,6 @@
         </Sidebar.Menu>
       </Sidebar.GroupContent>
     </Sidebar.Group>
-    <Collapsible.Root open={false} class="group/collapsible">
-      <Sidebar.Group>
-        <Sidebar.GroupLabel>
-          {#snippet child({ props })}
-            <Collapsible.Trigger {...props}>
-              Dev Playground
-              <ChevronLeft
-                class="ml-auto transition-transform group-data-[state=open]/collapsible:-rotate-90"
-              />
-            </Collapsible.Trigger>
-          {/snippet}
-        </Sidebar.GroupLabel>
-        <Collapsible.Content>
-          <Sidebar.Menu>
-            {#each devPlaygroundItems as item (item.title)}
-              <Sidebar.MenuItem>
-                <Sidebar.MenuButton>
-                  {#snippet child({ props })}
-                    <a href={item.url} {...props}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  {/snippet}
-                </Sidebar.MenuButton>
-              </Sidebar.MenuItem>
-            {/each}
-          </Sidebar.Menu>
-        </Collapsible.Content>
-      </Sidebar.Group>
-    </Collapsible.Root>
   </Sidebar.Content>
   <Sidebar.Footer>
     <Sidebar.Menu class="space-y-2">
