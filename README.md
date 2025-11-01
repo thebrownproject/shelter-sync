@@ -5,11 +5,13 @@
 ![SvelteKit](https://img.shields.io/badge/SvelteKit-FF3E00?logo=svelte&logoColor=white)
 ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?logo=supabase&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?logo=postgresql&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)
+![DigitalOcean](https://img.shields.io/badge/DigitalOcean-0080FF?logo=digitalocean&logoColor=white)
 ![MicroPython](https://img.shields.io/badge/MicroPython-2B2728?logo=micropython&logoColor=white)
 
 > Animal shelter management system with CRUD operations, real-time RFID tracking, and team collaboration via Agile practices
 
-🔗 **Live Demo:** _Coming soon_
+🔗 **Live Demo:** [shelter-sync.netlify.app](https://shelter-sync.netlify.app)
 
 ---
 
@@ -21,10 +23,11 @@ Shelter Sync is a full-stack animal shelter management system built for a team o
 
 ## Tech Stack
 
-**Frontend:** SvelteKit 5 · TypeScript · TailwindCSS 4 · shadcn-svelte · LayerChart
-**Backend:** Supabase (PostgreSQL · Realtime · Auth)
+**Frontend:** SvelteKit 5 · TypeScript · TailwindCSS 4 · shadcn-svelte
+**Backend:** Supabase (PostgreSQL · Realtime · Auth) · Self-Hosted (Docker Compose)
+**Infrastructure:** DigitalOcean VPS · Caddy (Reverse Proxy) · SSL/TLS · DuckDNS
 **Hardware:** ESP32 · MicroPython · RFID (RC522) · OLED Display
-**Infrastructure:** Netlify · Git · Jira
+**Deployment:** Netlify (Frontend) · Docker · Ubuntu 25.04
 
 ---
 
@@ -47,6 +50,9 @@ Shelter Sync is a full-stack animal shelter management system built for a team o
 
 Built with SvelteKit and Supabase to leverage server-side rendering with real-time database capabilities. The architecture separates concerns between authenticated routes under `/private` and public authentication pages, with session validation handled in server hooks. Chose Supabase Realtime for instant scan log synchronization between hardware devices and web clients without polling. The RFID hardware implements a secure two-stage authentication flow using MicroPython on ESP32: staff must authenticate with their RFID access card via REST API before scanning animals, with automatic session timeout after 30 seconds of inactivity. Custom Supabase client configuration supports both cloud and local development with ngrok compatibility. UI components built with shadcn-svelte for consistent, accessible design patterns across the application.
 
+**Self-Hosted Infrastructure**
+Self-hosted Supabase deployment on DigitalOcean demonstrates production DevOps capabilities. Deployed full Supabase stack (13 microservices) via Docker Compose on Ubuntu 25.04 VPS with 2GB RAM. Configured Caddy as reverse proxy with automatic Let's Encrypt SSL/TLS certificate management. Free DuckDNS domain provides HTTPS access to backend API, resolving browser mixed-content security restrictions for WebSocket connections. Frontend remains on Netlify CDN for optimal delivery while backend runs on self-managed infrastructure.
+
 ---
 
 ## Role & Contributions
@@ -65,9 +71,10 @@ Built with SvelteKit and Supabase to leverage server-side rendering with real-ti
 - Built authentication system with Supabase Auth, server-side session management, and protected route guards
 - Developed majority of frontend pages including animal management, adoption tracking, health records, and volunteer scheduling
 - Designed and implemented UI/UX using shadcn-svelte component system with custom responsive layouts
-- Created RFID scan log visualization with real-time chart updates using LayerChart
+- Created RFID scan log visualization with real-time chart updates
 - Implemented TypeScript type definitions for all database entities with snake_case to camelCase mapping
 - Integrated Supabase Realtime subscriptions for live RFID scan detection across web and mobile interfaces
+- Deployed self-hosted Supabase infrastructure with Docker containerization, reverse proxy configuration, and SSL automation
 
 **Hardware Integration:**
 
@@ -85,6 +92,7 @@ Built with SvelteKit and Supabase to leverage server-side rendering with real-ti
 - Architecting a full-stack application with real-time capabilities across web and hardware interfaces
 - Managing complex database relationships and ensuring data integrity with PostgreSQL constraints
 - Integrating hardware devices with cloud infrastructure via RESTful APIs and realtime subscriptions
+- Deploying production infrastructure with Docker Compose, reverse proxies (Caddy), and SSL/TLS certificate automation
 
 **Challenges Overcome:**
 
