@@ -1,11 +1,12 @@
 node_modules
+.svelte-kit
 
 # Output
 .output
 .vercel
 .netlify
 .wrangler
-/.svelte-kit
+frontend/.svelte-kit
 /build
 
 # OS
@@ -29,3 +30,6 @@ CLAUDE.md
 /.serena
 
 .mcp.json
+
+# Refactoring documentation (internal use only)
+refactoring-docs/

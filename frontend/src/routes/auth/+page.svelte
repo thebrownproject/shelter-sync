@@ -8,11 +8,19 @@
   import Loader2Icon from "@lucide/svelte/icons/loader-2";
 
   let { form } = $props();
-  let mode = $state<"login" | "register">("login");
   let isLoading = $state(false);
 
   const emailId = crypto.randomUUID();
   const passwordId = crypto.randomUUID();
+
+  // Demo credentials
+  let email = $state("");
+  let password = $state("");
+
+  function fillDemoCredentials() {
+    email = "demo@shelter-sync.app";
+    password = "letMeIn!!";
+  }
 </script>
 
 <div
@@ -32,14 +40,8 @@
     <!-- Auth Form Card -->
     <Card.Root>
       <Card.Header class="text-center">
-        <Card.Title class="text-xl">
-          {mode === "login" ? "Welcome back" : "Create an account"}
-        </Card.Title>
-        <Card.Description>
-          {mode === "login"
-            ? "Sign in to your account to continue"
-            : "Enter your details to create your account"}
-        </Card.Description>
+        <Card.Title class="text-xl">Welcome back</Card.Title>
+        <Card.Description>Sign in to your account to continue</Card.Description>
       </Card.Header>
       <Card.Content>
         <!-- Display messages/errors -->
@@ -53,7 +55,7 @@
 
         <form
           method="POST"
-          action={mode === "login" ? "?/login" : "?/signup"}
+          action="?/login"
           use:enhance={() => {
             isLoading = true;
             return async ({ update }) => {
@@ -71,6 +73,7 @@
                 type="email"
                 placeholder="m@example.com"
                 disabled={isLoading}
+                bind:value={email}
                 required
               />
             </div>
@@ -81,39 +84,37 @@
                 name="password"
                 type="password"
                 disabled={isLoading}
+                bind:value={password}
                 required
               />
             </div>
             <Button type="submit" class="w-full" disabled={isLoading}>
               {#if isLoading}
                 <Loader2Icon class="mr-2 h-4 w-4 animate-spin" />
-                {mode === "login" ? "Signing in..." : "Creating account..."}
+                Signing in...
               {:else}
-                {mode === "login" ? "Login" : "Register"}
+                Login
               {/if}
             </Button>
           </div>
         </form>
 
-        <!-- Mode toggle -->
-        <div class="mt-6 text-center text-sm">
-          {mode === "login"
-            ? "Don't have an account?"
-            : "Already have an account?"}
-          <button
+        <!-- Demo credentials -->
+        <div class="mt-6 rounded-lg border bg-muted/50 p-4">
+          <p class="text-sm font-medium mb-2">Demo Account</p>
+          <p class="text-xs text-muted-foreground mb-3">
+            Try the application with pre-populated data
+          </p>
+          <Button
             type="button"
-            on:click={() => {
-              mode = mode === "login" ? "register" : "login";
-              // Clear any previous form state when switching modes
-              if (form?.error) {
-                form = null;
-              }
-            }}
-            class="underline underline-offset-4 hover:text-primary disabled:opacity-50 disabled:cursor-not-allowed"
+            variant="outline"
+            size="sm"
+            class="w-full"
+            onclick={fillDemoCredentials}
             disabled={isLoading}
           >
-            {mode === "login" ? "Sign up" : "Sign in"}
-          </button>
+            Use Demo Credentials
+          </Button>
         </div>
       </Card.Content>
     </Card.Root>
