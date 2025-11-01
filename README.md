@@ -16,7 +16,7 @@
 
 ## Overview
 
-Shelter Sync is a full-stack animal shelter management system built for a team of three as the capstone project for our Certificate IV in IT (Programming). The application streamlines shelter operations through comprehensive animal records management, adoption tracking, veterinary health monitoring, and volunteer scheduling. The system integrates ESP32-based RFID scanners with real-time database synchronization, enabling staff to instantly access animal information via handheld devices or the web interface.
+Shelter Sync is a full-stack animal shelter management system developed by a three person team as our Certificate IV in IT (Programming) capstone first semester project. The application streamlines shelter operations through comprehensive animal records management, adoption tracking, veterinary health monitoring, and volunteer scheduling. The system integrates ESP32-based RFID scanners with real-time database synchronization, enabling staff to instantly access animal information via handheld devices or the web interface.
 
 ---
 
