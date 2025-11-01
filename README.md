@@ -3,13 +3,12 @@
 ![Status](https://img.shields.io/badge/status-complete-green)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)
 ![SvelteKit](https://img.shields.io/badge/SvelteKit-FF3E00?logo=svelte&logoColor=white)
-![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?logo=supabase&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?logo=postgresql&logoColor=white)
+![MicroPython](https://img.shields.io/badge/MicroPython-2B2728?logo=micropython&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)
 ![DigitalOcean](https://img.shields.io/badge/DigitalOcean-0080FF?logo=digitalocean&logoColor=white)
-![MicroPython](https://img.shields.io/badge/MicroPython-2B2728?logo=micropython&logoColor=white)
 
-> Animal shelter management system with CRUD operations, real-time RFID tracking, and team collaboration via Agile practices
+> Animal shelter management system with CRUD operations, real-time RFID tracking, and team collaboration using Agile development principles
 
 🔗 **Live Demo:** [shelter-sync.netlify.app](https://shelter-sync.netlify.app)
 
@@ -23,10 +22,10 @@ Shelter Sync is a full-stack animal shelter management system built for a team o
 
 ## Tech Stack
 
-**Frontend:** SvelteKit 5 · TypeScript · TailwindCSS 4 · shadcn-svelte
-**Backend:** Supabase (PostgreSQL · Realtime · Auth) · Self-Hosted (Docker Compose)
-**Infrastructure:** DigitalOcean VPS · Caddy (Reverse Proxy) · SSL/TLS · DuckDNS
-**Hardware:** ESP32 · MicroPython · RFID (RC522) · OLED Display
+**Frontend:** SvelteKit 5 · TypeScript · TailwindCSS 4 · shadcn-svelte <br>
+**Backend:** Supabase (PostgreSQL · Realtime · Auth) · Self-Hosted (Docker Compose) <br>
+**Infrastructure:** DigitalOcean VPS · Caddy (Reverse Proxy) · SSL/TLS · DuckDNS <br>
+**Hardware:** ESP32 · MicroPython · RFID (RC522) · OLED Display <br>
 **Deployment:** Netlify (Frontend) · Docker · Ubuntu 25.04
 
 ---
