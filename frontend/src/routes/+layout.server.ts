@@ -14,13 +14,7 @@ export const load: LayoutServerLoad = async ({
       .select("id, email, first_name, last_name, phone, rfid_tag, volunteer_start_date")
       .eq("id", user.id)
       .single();
-    
-    if (error) {
-      // console.error("Error fetching user profile:", error);
-    } else {
-      // console.log("✅ User profile loaded:", data);
-    }
-    
+
     userProfile = data;
   }
   

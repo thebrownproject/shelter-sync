@@ -22,8 +22,6 @@ export const load: PageServerLoad = async ({ parent }) => {
     };
   }
 
-  console.log("✅ Animal data from database:", data);
-
   // Parse any JSON-serialized fields (e.g., arrays/objects stored as strings) so consumers get real arrays/objects
   const parsedAnimals = (data ?? []).map((row: any) => {
     const parsedRow: Record<string, any> = { ...row };
@@ -55,10 +53,6 @@ export const actions: Actions = {
   get: async ({ request }) => {
     try {
       const formData = await request.formData();
-      console.log("📝 Form data received:");
-      for (let [key, value] of formData.entries()) {
-        console.log(`  ${key}: ${value}`);
-      }
       const limitValue = formData.get("limit");
       const dbFieldsRaw = formData.get("dbFields");
       const dbFields =
@@ -84,15 +78,8 @@ export const actions: Actions = {
 
   // CREATE - Add a new animal
   create: async ({ request }) => {
-    console.log("🚀🚀🚀 CREATE ACTION CALLED! 🚀🚀🚀");
-
     try {
       const data = await request.formData();
-
-      console.log("📝 Form data received:");
-      for (let [key, value] of data.entries()) {
-        console.log(`  ${key}: ${value}`);
-      }
 
       const animalData = {
         name: data.get("name") as string,
@@ -114,8 +101,6 @@ export const actions: Actions = {
         description: (data.get("description") as string) || null,
       };
 
-      console.log("💾 Animal data to insert:", animalData);
-
       const { data: insertedData, error } = await supabase
         .from("animal")
         .insert([animalData])
@@ -126,7 +111,6 @@ export const actions: Actions = {
         return fail(400, { error: error.message });
       }
 
-      console.log("✅ Animal created successfully:", insertedData);
       return { success: true };
     } catch (err) {
       console.error("❌ Unexpected error in create action:", err);
@@ -136,7 +120,6 @@ export const actions: Actions = {
 
   // UPDATE - Update an existing animal
   update: async ({ request }) => {
-    console.log("🔄 UPDATE ACTION CALLED");
     const data = await request.formData();
     const id = data.get("id") as string;
 
@@ -173,7 +156,6 @@ export const actions: Actions = {
 
   // DELETE - Delete an existing animal
   delete: async ({ request }) => {
-    console.log("🗑️ DELETE ACTION CALLED");
     const data = await request.formData();
     const id = data.get("id") as string;
 
@@ -189,7 +171,6 @@ export const actions: Actions = {
 
   // PARTIAL UPDATE - only modify provided fields (prevents nulling omitted data)
   put: async ({ request }) => {
-    console.log("🧩 PARTIAL PUT ACTION CALLED");
     const form = await request.formData();
     const id = form.get("id") as string;
     if (!id) return fail(400, { error: "Missing id" });
@@ -240,8 +221,6 @@ export const actions: Actions = {
     if (Object.keys(updatePayload).length === 0) {
       return fail(400, { error: "No fields provided to update" });
     }
-
-    console.log("🔧 Partial update payload:", updatePayload);
 
     const { error } = await supabase
       .from("animal")

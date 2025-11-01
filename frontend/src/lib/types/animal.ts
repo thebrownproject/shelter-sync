@@ -1,7 +1,7 @@
 /**
  * Core Animal type definition
  */
-export interface Animal {
+export type Animal = {
   id: string;
   name: string;
   species: string;
@@ -18,12 +18,12 @@ export interface Animal {
   description?: string;
   created_at?: string;
   updated_at?: string;
-}
+};
 
 /**
  * Animal form data for creating new animals
  */
-export interface AnimalCreateData {
+export type AnimalCreateData = {
   name: string;
   species: string;
   breed?: string;
@@ -37,25 +37,25 @@ export interface AnimalCreateData {
   rfid_tag?: string;
   special_needs?: string;
   description?: string;
-}
+};
 
 /**
  * Animal form data for updating existing animals
  */
-export interface AnimalUpdateData extends AnimalCreateData {
+export type AnimalUpdateData = AnimalCreateData & {
   id: string;
-}
+};
 
 /**
  * Available animal species options
  */
 export const ANIMAL_SPECIES = [
   "Rabbit",
-  "Dog", 
+  "Dog",
   "Cat",
   "Guinea Pig",
   "Bird",
-  "Other"
+  "Other",
 ] as const;
 
 /**
@@ -63,34 +63,34 @@ export const ANIMAL_SPECIES = [
  */
 export const ADOPTION_STATUSES = [
   "Available",
-  "Pending", 
+  "Pending",
   "Adopted",
   "Hold",
   "Medical Hold",
-  "Not Available"
+  "Not Available",
 ] as const;
 
 /**
  * Animal species type
  */
-export type AnimalSpecies = typeof ANIMAL_SPECIES[number];
+export type AnimalSpecies = (typeof ANIMAL_SPECIES)[number];
 
 /**
  * Adoption status type
  */
-export type AdoptionStatus = typeof ADOPTION_STATUSES[number];
+export type AdoptionStatus = (typeof ADOPTION_STATUSES)[number];
 
 /**
  * Animal filter options
  */
-export interface AnimalFilters {
+export type AnimalFilters = {
   searchTerm: string;
   species: string;
   adoptionStatus: string;
   neutered: string;
   dateFrom: string;
   dateTo: string;
-}
+};
 
 /**
  * Modal modes for animal operations
@@ -100,13 +100,19 @@ export type AnimalModalMode = "view" | "edit";
 /**
  * Form field types supported by AnimalFormField
  */
-export type FormFieldType = "text" | "date" | "number" | "select" | "textarea" | "checkbox";
+export type FormFieldType =
+  | "text"
+  | "date"
+  | "number"
+  | "select"
+  | "textarea"
+  | "checkbox";
 
 /**
  * Animal event handlers
  */
-export interface AnimalEventHandlers {
+export type AnimalEventHandlers = {
   onView?: (animal: Animal) => void;
   onEdit?: (animal: Animal) => void;
   onDelete?: (animal: Animal) => void;
-}
+};

@@ -35,11 +35,9 @@
       if (data) {
         animals = data;
       } else {
-        console.warn("Animals fetch failed:", error);
         toast.error("Failed to load animals");
       }
     } catch (e) {
-      console.warn("Failed to fetch animals list for RFID assignment", e);
       toast.error("Failed to load animals");
     } finally {
       loadingAnimals = false;

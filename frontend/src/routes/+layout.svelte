@@ -78,9 +78,6 @@
       }
     });
 
-    console.log("Setting up realtime channel...");
-    console.log("Current user ID:", currentUserId);
-
     channel = supabase
       .channel("log-test")
       .on(
@@ -92,8 +89,6 @@
           filter: `user_id=eq.${currentUserId}`,
         },
         async (payload) => {
-          console.log("New log entry:", payload);
-          console.log("Payload structure:", JSON.stringify(payload, null, 2));
           logEvents = [payload.new, ...logEvents];
 
           // Reset modal state first to ensure fresh data
@@ -106,24 +101,12 @@
 
           // Fetch animal details if animal_id exists
           if (payload.new.animal_id) {
-            console.log("Animal ID found:", payload.new.animal_id);
-            console.log("Fetching animal details...");
-
-            // Check authentication status
-            console.log("Session from server:", session);
-            console.log("User authenticated:", !!session);
-
             const {
               data: { user },
             } = await supabase.auth.getUser();
-            console.log("Current user from getUser():", user);
-            console.log("User authenticated via getUser():", !!user);
 
             // Check if user is authenticated before querying
             if (!session && !user) {
-              console.log(
-                "User not authenticated - cannot fetch animal details"
-              );
               animalDetails = {
                 name: "Authentication Required",
                 error: "Please log in to view animal details",
@@ -136,29 +119,15 @@
                 .eq("id", payload.new.animal_id)
                 .single();
 
-              console.log("Supabase response - data:", animal);
-              console.log("Supabase response - error:", error);
-
               if (animal && !error) {
                 animalDetails = animal;
-                console.log("Animal details set:", animal);
-                console.log(
-                  "animalDetails state after setting:",
-                  animalDetails
-                );
-                console.log("Dialog should show animal data for:", animal.name);
-
                 dialogOpen = true;
               } else {
                 console.error("Error fetching animal details:", error);
                 animalDetails = null;
-                console.log("animalDetails set to null due to error");
               }
             }
           } else {
-            console.log(
-              "No animal_id in payload, offer to assign this rfid tag to animal"
-            );
             // Set animalDetails to null and rfidTag to trigger assignment mode
             animalDetails = null;
             rfidTag = payload.new.rfid_tag || null;
@@ -167,7 +136,6 @@
         }
       )
       .subscribe((status) => {
-        console.log("Subscription status:", status);
         if (status === "SUBSCRIBED") {
           connectionStatus = "Connected";
         } else if (status === "CLOSED") {

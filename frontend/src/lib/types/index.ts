@@ -30,3 +30,13 @@ export type {
   SortDirection,
   AnimalSortOptions
 } from './utils';
+
+// RFID types
+export type {
+  RfidScanLog,
+  RfidLogEvent,
+  RfidScanData,
+  AnimalData,
+  NoteType,
+  SupabaseChannel
+} from './rfid';

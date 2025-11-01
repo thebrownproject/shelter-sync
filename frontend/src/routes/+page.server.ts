@@ -48,12 +48,6 @@ export const load: PageServerLoad = async ({ parent }) => {
     };
   }
 
-  //  console.log("✅ Animal data from database:", animalData);
-  //  console.log("✅ Health check data from database:", healthCheckData);
-  // console.log("✅ Adoption data from database:", adoptionData);
-  // console.log("✅ Shift data from database:", shiftData);
-  // console.log("✅ RFID data from database:", rfidData);
-
   return {
     ...parentData, // Include parent data (session, user, userProfile)
     animals: animalData ?? [],

@@ -30,8 +30,6 @@ export const load: PageServerLoad = async ({ parent }) => {
     };
   }
 
-  // console.log("✅ RFID log data from database:", data);
-
   return {
     ...parentData,
     rfid_logs: data ?? [],

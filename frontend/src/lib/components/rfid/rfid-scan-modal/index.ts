@@ -1,4 +1,4 @@
-export { default as RfidScanModal } from './rfid-scan-modal-new.svelte';
+export { default as RfidScanModal } from './rfid-scan-modal.svelte';
 export { default as RfidScanDetailsSection } from './rfid-scan-details-section.svelte';
 export { default as AnimalDetailSection } from './animal-detail-section.svelte';
 export { default as AnimalEditSection } from './animal-edit-section.svelte';

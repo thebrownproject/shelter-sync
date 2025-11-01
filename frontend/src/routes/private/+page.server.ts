@@ -23,9 +23,6 @@ export const load: PageServerLoad = async ({ parent }) => {
     };
   }
 
-  // console.log("✅ Current user data from database:", data);
-  // console.log("✅ Extracting first user from array:", data ? data[0] : null);
-
   return {
     ...parentData,
     currentUser: data ? data[0] : null,

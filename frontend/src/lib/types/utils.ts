@@ -33,18 +33,18 @@ export type AnimalArrayProcessor<T = Animal[]> = (animals: Animal[]) => T;
 /**
  * Animal field validation result
  */
-export interface FieldValidationResult {
+export type FieldValidationResult = {
   isValid: boolean;
   error?: string;
-}
+};
 
 /**
  * Animal form validation result
  */
-export interface FormValidationResult {
+export type FormValidationResult = {
   isValid: boolean;
   errors: Record<string, string>;
-}
+};
 
 /**
  * Sort options for animal lists
@@ -52,7 +52,7 @@ export interface FormValidationResult {
 export type AnimalSortField = keyof Pick<Animal, 'name' | 'species' | 'arrival_date' | 'adoption_status'>;
 export type SortDirection = 'asc' | 'desc';
 
-export interface AnimalSortOptions {
+export type AnimalSortOptions = {
   field: AnimalSortField;
   direction: SortDirection;
-}
+};

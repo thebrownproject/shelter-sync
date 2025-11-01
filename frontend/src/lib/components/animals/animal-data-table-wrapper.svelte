@@ -8,6 +8,7 @@
   import type { Animal, AnimalModalMode } from "$lib/types";
   import { supabase } from "$lib/supabaseClient";
   import { invalidateAll } from "$app/navigation";
+  import { toast } from "svelte-sonner";
 
   export let data: Animal[] = [];
 
@@ -18,6 +19,10 @@
 
   // Form state
   let showCreateForm = false;
+
+  // Delete confirmation state
+  let showDeleteDialog = false;
+  let animalToDelete: Animal | null = null;
 
   // Filtered animals
   let filteredAnimals: Animal[] = data;
@@ -47,34 +52,46 @@
     showAnimalModal = true;
   }
 
-  // Handle delete from data table
-  async function handleDelete(animal: Animal) {
+  // Handle delete from data table (opens confirmation dialog)
+  function handleDelete(animal: Animal) {
     if (!animal.id) {
-      alert(`Cannot delete ${animal.name}: Invalid ID`);
+      toast.error(`Cannot delete ${animal.name}: Invalid ID`);
       return;
     }
 
-    if (!confirm(`Are you sure you want to delete ${animal.name}? This action cannot be undone.`)) {
-      return;
-    }
+    animalToDelete = animal;
+    showDeleteDialog = true;
+  }
+
+  // Confirm and execute delete
+  async function confirmDelete() {
+    if (!animalToDelete) return;
 
     try {
       const { error } = await supabase
         .from('animal')
         .delete()
-        .eq('id', animal.id);
+        .eq('id', animalToDelete.id);
 
       if (error) {
-        alert(`Failed to delete ${animal.name}: ${error.message}`);
+        toast.error(`Failed to delete ${animalToDelete.name}: ${error.message}`);
         return;
       }
 
+      toast.success(`${animalToDelete.name} has been deleted successfully`);
       await invalidateAll();
       showAnimalModal = false;
       showCreateForm = false;
+      showDeleteDialog = false;
+      animalToDelete = null;
     } catch (err) {
-      alert(`Failed to delete ${animal.name}: An unexpected error occurred`);
+      toast.error(`Failed to delete ${animalToDelete.name}: An unexpected error occurred`);
     }
+  }
+
+  function cancelDelete() {
+    showDeleteDialog = false;
+    animalToDelete = null;
   }
 
   // Handle create new animal
@@ -141,3 +158,24 @@
   mode={modalMode}
   allAnimals={data}
 />
+
+<!-- Delete Confirmation Dialog -->
+<Dialog.Root bind:open={showDeleteDialog}>
+  <Dialog.Content>
+    <Dialog.Header>
+      <Dialog.Title>Delete Animal</Dialog.Title>
+      <Dialog.Description>
+        Are you sure you want to delete <strong>{animalToDelete?.name}</strong>?
+        This action cannot be undone.
+      </Dialog.Description>
+    </Dialog.Header>
+    <Dialog.Footer>
+      <Button type="button" variant="outline" onclick={cancelDelete}>
+        Cancel
+      </Button>
+      <Button type="button" variant="destructive" onclick={confirmDelete}>
+        Delete
+      </Button>
+    </Dialog.Footer>
+  </Dialog.Content>
+</Dialog.Root>
