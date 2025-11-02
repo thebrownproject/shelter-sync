@@ -46,20 +46,24 @@ Shelter Sync is a full-stack animal shelter management system developed by a thr
 
 ## Architecture & Tech Decisions
 
-**Core Architecture**
+Built with SvelteKit and Supabase to leverage server-side rendering with real-time database capabilities. The application integrates ESP32 RFID scanners with a web interface through Supabase's REST API and Realtime subscriptions, enabling instant synchronisation of scan events across all connected clients. Authentication handled via server hooks with session validation, ensuring all routes require authentication except the auth pages. UI built with shadcn-svelte component system for consistent, accessible design patterns.
 
-- SvelteKit with Supabase provides server-side rendering and real-time capabilities
-- Authentication handled via server hooks with session validation
-- Supabase Realtime enables instant scan log synchronisation between ESP32 devices and web clients
-- RFID hardware uses two-stage authentication (staff card → animal tag) with 30-second session timeout
-- UI built with shadcn-svelte for consistent, accessible design patterns
+### Key Technical Decisions
 
-**Self-Hosted Infrastructure**
+**Supabase Realtime for Hardware-Web Synchronisation**
+Chose Supabase Realtime over polling to achieve sub-second latency for RFID scan updates. When ESP32 devices POST scan data via REST API, Realtime broadcasts changes to all connected web clients instantly via WebSockets. This eliminates the need for continuous polling and provides a live view of shelter activity.
 
-- Self-hosted Supabase deployment on DigitalOcean VPS via Docker Compose on Ubuntu 25.04
-- Caddy reverse proxy with automatic Let's Encrypt SSL/TLS certificate management
-- DuckDNS domain provides HTTPS access to backend API, resolving browser mixed-content security restrictions
-- Frontend deployed on Netlify CDN while backend runs on self-managed infrastructure
+**Two-Stage RFID Authentication**
+Implemented a secure authentication flow where staff must scan their access card before scanning animals. Session expires after 30 seconds of inactivity, preventing unauthorised access if a device is left unattended. This mirrors industry security patterns (card + PIN, 2FA) while keeping the UX simple for staff.
+
+**Self-Hosted Supabase Infrastructure**
+Deployed full Supabase stack via Docker Compose on DigitalOcean VPS to demonstrate production DevOps capabilities. Configured Caddy as reverse proxy with automatic Let's Encrypt SSL/TLS certificates. DuckDNS domain provides HTTPS access to backend API, resolving browser mixed-content security restrictions for WebSocket connections. Frontend remains on Netlify CDN for optimal delivery.
+
+**Component Architecture with Svelte 5 Runes**
+Used Svelte 5's new runes (`$state`, `$derived`, `$effect`) for clean reactivity patterns. Organised components by feature domain (animals, rfid, forms, layout) with barrel exports for maintainable imports. Split large components into focused, single-responsibility modules for better testability and code clarity.
+
+**Server-Side Form Actions**
+SvelteKit form actions handle CRUD operations server-side, providing progressive enhancement and working without JavaScript enabled. Form submissions POST to `?/create`, `?/update`, `?/delete` actions which validate data and interact with Supabase securely without exposing credentials to the client.
 
 ---
 
