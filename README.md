@@ -46,10 +46,20 @@ Shelter Sync is a full-stack animal shelter management system developed by a thr
 
 ## Architecture & Tech Decisions
 
-Built with SvelteKit and Supabase to leverage server-side rendering with real-time database capabilities. The architecture separates concerns between authenticated routes (requiring login) and public authentication pages, with session validation handled in server hooks. Chose Supabase Realtime for instant scan log synchronisation between hardware devices and web clients without polling. The RFID hardware implements a secure two-stage authentication flow using MicroPython on ESP32: staff must authenticate with their RFID access card via REST API before scanning animals, with automatic session timeout after 30 seconds of inactivity. Custom Supabase client configuration supports both cloud and local development with ngrok compatibility. UI components built with shadcn-svelte for consistent, accessible design patterns across the application.
+**Core Architecture**
+
+- SvelteKit with Supabase provides server-side rendering and real-time capabilities
+- Authentication handled via server hooks with session validation
+- Supabase Realtime enables instant scan log synchronisation between ESP32 devices and web clients
+- RFID hardware uses two-stage authentication (staff card → animal tag) with 30-second session timeout
+- UI built with shadcn-svelte for consistent, accessible design patterns
 
 **Self-Hosted Infrastructure**
-Self-hosted Supabase deployment on DigitalOcean demonstrates production DevOps capabilities. Deployed full Supabase stack (13 microservices) via Docker Compose on Ubuntu 25.04 VPS with 2GB RAM. Configured Caddy as reverse proxy with automatic Let's Encrypt SSL/TLS certificate management. Free DuckDNS domain provides HTTPS access to backend API, resolving browser mixed-content security restrictions for WebSocket connections. Frontend remains on Netlify CDN for optimal delivery while backend runs on self-managed infrastructure.
+
+- Self-hosted Supabase deployment on DigitalOcean VPS via Docker Compose on Ubuntu 25.04
+- Caddy reverse proxy with automatic Let's Encrypt SSL/TLS certificate management
+- DuckDNS domain provides HTTPS access to backend API, resolving browser mixed-content security restrictions
+- Frontend deployed on Netlify CDN while backend runs on self-managed infrastructure
 
 ---
 
