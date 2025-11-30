@@ -159,8 +159,6 @@
                       <span class="ml-1">↑</span>
                     {:else if header.column.getIsSorted() === "desc"}
                       <span class="ml-1">↓</span>
-                    {:else}
-                      <span class="ml-1 opacity-50">↕</span>
                     {/if}
                   </Button>
                 {:else}

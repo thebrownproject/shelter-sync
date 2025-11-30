@@ -2,7 +2,7 @@
   import * as Dialog from "$lib/components/ui/dialog/index.js";
   import { Button } from "$lib/components/ui/button/index.js";
   import { AnimalViewDetails } from "$lib/components/animals";
-  import { AnimalEditForm } from "$lib/components/forms";
+  import { AnimalForm } from "$lib/components/forms";
   import type { Animal, AnimalModalMode } from "$lib/types";
 
   export let animal: Animal | null = null;
@@ -12,7 +12,7 @@
 
   // Create a local copy for editing
   let editingAnimal: Animal | null = null;
-  
+
   // Update local copy when animal prop changes
   $: if (animal && mode === "edit") {
     editingAnimal = { ...animal };
@@ -33,17 +33,19 @@
     </Dialog.Header>
     
     <!-- Dialog Body Content -->
-    {#if animal}
-      {#if mode === "view"}
-        <AnimalViewDetails {animal} />
-      {:else if mode === "edit" && editingAnimal}
-        <AnimalEditForm animal={editingAnimal} {allAnimals} />
+    <div class="flex-1 overflow-y-auto px-1">
+      {#if animal}
+        {#if mode === "view"}
+          <AnimalViewDetails {animal} />
+        {:else if mode === "edit" && editingAnimal}
+          <AnimalForm mode="edit" animal={editingAnimal} {allAnimals} />
+        {/if}
+      {:else}
+        <div class="flex items-center justify-center p-8">
+          <p class="text-muted-foreground">No animal selected</p>
+        </div>
       {/if}
-    {:else}
-      <div class="flex items-center justify-center p-8">
-        <p class="text-muted-foreground">No animal selected</p>
-      </div>
-    {/if}
+    </div>
     
     <!-- Dialog Footer for all modes -->
     <Dialog.Footer>
