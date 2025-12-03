@@ -32,15 +32,15 @@ Shelter Sync is a full-stack animal shelter management system developed by a thr
 
 ## Features
 
-- **Animal management** with full CRUD operations, adoption status tracking, and bonded pair relationships
-- **Two-stage RFID authentication** where staff scan their access card before scanning animals
-- **Real-time RFID scanning** with ESP32 handheld scanners displaying instant animal details on OLED display
-- **Supabase Realtime subscriptions** for live scan log updates across all connected clients
-- **RFID scan log history** with detailed tracking of all animal scans and staff interactions
-- **Authentication and authorisation** via Supabase Auth with server-side session validation
-- **Data visualisation dashboard** with interactive scan history charts
-- **Staff profile management** with volunteer status tracking and role information
-- **Custom UI/UX design** with shadcn-svelte component system and responsive layouts
+- Animal management with full CRUD operations and adoption status tracking
+- Two-stage RFID authentication where staff scan their access card before scanning animals
+- Real-time RFID scanning with ESP32 handheld scanners displaying instant animal details on OLED display
+- Supabase Realtime subscriptions for live scan log updates across all connected clients
+- RFID scan log history with detailed tracking of all animal scans and staff interactions
+- Authentication and authorisation via Supabase Auth with server-side session validation
+- Data visualisation dashboard with interactive scan history charts
+- Staff profile management with volunteer status tracking and role information
+- Custom UI/UX design with shadcn-svelte component system and responsive layouts
 
 ---
 
@@ -51,18 +51,23 @@ Built with SvelteKit and Supabase to leverage server-side rendering with real-ti
 ### Key Technical Decisions
 
 **Supabase Realtime for Hardware-Web Synchronisation**
+
 Chose Supabase Realtime over polling to achieve sub-second latency for RFID scan updates. When ESP32 devices POST scan data via REST API, Realtime broadcasts changes to all connected web clients instantly via WebSockets. This eliminates the need for continuous polling and provides a live view of shelter activity.
 
 **Two-Stage RFID Authentication**
+
 Implemented a secure authentication flow where staff must scan their access card before scanning animals. Session expires after 30 seconds of inactivity, preventing unauthorised access if a device is left unattended. This mirrors industry security patterns (card + PIN, 2FA) while keeping the UX simple for staff.
 
 **Self-Hosted Supabase Infrastructure**
+
 Deployed full Supabase stack via Docker Compose on DigitalOcean VPS to demonstrate production DevOps capabilities. Configured Caddy as reverse proxy with automatic Let's Encrypt SSL/TLS certificates. DuckDNS domain provides HTTPS access to backend API, resolving browser mixed-content security restrictions for WebSocket connections. Frontend remains on Netlify CDN for optimal delivery.
 
 **Component Architecture with Svelte 5 Runes**
+
 Used Svelte 5's new runes (`$state`, `$derived`, `$effect`) for clean reactivity patterns. Organised components by feature domain (animals, rfid, forms, layout) with barrel exports for maintainable imports. Split large components into focused, single-responsibility modules for better testability and code clarity.
 
 **Server-Side Form Actions**
+
 SvelteKit form actions handle CRUD operations server-side, providing progressive enhancement and working without JavaScript enabled. Form submissions POST to `?/create`, `?/update`, `?/delete` actions which validate data and interact with Supabase securely without exposing credentials to the client.
 
 ---
@@ -86,7 +91,14 @@ SvelteKit form actions handle CRUD operations server-side, providing progressive
 - Created RFID scan log visualisation with real-time chart updates
 - Implemented TypeScript type definitions for all database entities with snake_case to camelCase mapping
 - Integrated Supabase Realtime subscriptions for live RFID scan detection across web and mobile interfaces
-- Deployed self-hosted Supabase infrastructure with Docker containerisation, reverse proxy configuration, and SSL automation
+
+**DevOps & Deployment:**
+
+- Deployed frontend to Netlify with automated CI/CD pipeline triggered by Git commits to main branch
+- Self-hosted complete Supabase stack on DigitalOcean VPS using Docker Compose with persistent volume management
+- Configured Caddy reverse proxy with automatic Let's Encrypt SSL/TLS certificate provisioning and renewal
+- Set up DuckDNS dynamic DNS for HTTPS access to backend API, resolving mixed-content security restrictions
+- Configured environment variables and secrets management across development and production environments
 
 **Hardware Integration:**
 
